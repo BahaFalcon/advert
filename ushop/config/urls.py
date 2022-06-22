@@ -18,25 +18,22 @@ from django.urls import path, include
 
 from rest_framework import routers
 
-from store.views import ProductViewSet, ProductCategoryViewSet, ProductsByCategory, ProductListView
+from store.views import ProductViewSet, ProductCategoryViewSet, ProductsByCategoryList, ProductListView, ProductByCategory
 from users.views import UserViewSet
-
+from .yasg import urlpatterns as doc_urls
 
 router = routers.DefaultRouter()
 router.register(r'user', UserViewSet, basename='user')
-print(router.urls)
-router1 = routers.DefaultRouter()
-router1.register(r'product', ProductViewSet, basename='product')
-print(router1.urls)
-router2 = routers.DefaultRouter()
-router2.register(r'product_cat', ProductCategoryViewSet, basename='product_cat')
-print(router2.urls)
+router.register(r'product', ProductViewSet, basename='product')
+router.register(r'product_cat', ProductCategoryViewSet, basename='product_cat')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
-    path('api/v1/', include(router1.urls)),
-    path('api/v1/', include(router2 .urls)),
-    path('api/v1/products_by_category/', ProductsByCategory.as_view()),
+    path('api/v1/products_by_category/', ProductsByCategoryList.as_view()),
+    path('api/v1/products_by_category/<pk>/', ProductByCategory.as_view()),
     path('api/v1/product_search/', ProductListView.as_view()),
 ]
+
+urlpatterns += doc_urls

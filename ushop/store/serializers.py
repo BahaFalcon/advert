@@ -15,13 +15,11 @@ class ProductCategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProductByCategorySerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='title')
+class ProductsByCategoryListSerializer(serializers.ModelSerializer):
+    # title = serializers.CharField(source='title')
     products = ProductSerializer(many=True)
 
     class Meta:
         model = ProductCategory
-        fields = ('id', 'name', 'products')
-
-
+        fields = ('id', 'title', 'products')
 

@@ -18,13 +18,13 @@ class ProductCategory(models.Model):
 
 class Product(models.Model):
     """Мoдель для товаров"""
-    author = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    author = models.ForeignKey(to=User, verbose_name='Автор', on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, verbose_name='Наименование')
+    description = models.TextField(verbose_name='Описание')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
     category = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE,
-                                 null=True, related_name='products')
-    is_active = models.BooleanField(default=True)
+                                 null=True, verbose_name='Категория', related_name='products')
+    is_active = models.BooleanField(default=True, verbose_name='Активно')
 
     class Meta:
         verbose_name = 'Товар'
